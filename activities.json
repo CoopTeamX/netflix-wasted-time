@@ -1,0 +1,93 @@
+{
+	"look_a_snap": {
+		"translations": {
+			"fr": "Regarder un snap",
+			"en": "Look a snap"
+		},
+		"runtime": 0.002777
+	},
+	"read_one_page": {
+		"translations": {
+			"fr": "Lire une page de ton livre",
+			"en": "Read one page of your book"
+		},
+		"runtime": 0.017
+	},
+	"run_one_kilometer": {
+		"translations": {
+			"fr": "Courir 1 km à 7.5km/h",
+			"en": "Run 1km at 7.5km/h (don't care about your retarded unit of measurement)"
+		},
+		"runtime": 0.14
+	},
+	"eat_kebab": {
+		"translations": {
+			"fr": "Savourer un bon kebab",
+			"en": "Enjoy a good kebab"
+		},
+		"runtime": 0.4
+	},
+	"run_a_marathon": {
+		"translations": {
+			"fr": "Courir un marathon",
+			"en": "Run a marathon"
+		},
+		"runtime": 4.5
+	},
+	"give_birth_first_time": {
+		"translations": {
+			"fr": "Accoucher de son premier enfant",
+			"en": "Give birth for the first time"
+		},
+		"runtime": 13
+	},
+	"get_driver_licence": {
+		"translations": {
+			"fr": "Obtenir ton permis de conduire",
+			"en": "Get your driver licence"
+		},
+		"runtime": 22
+	},
+	"work_a_week": {
+		"translations": {
+			"fr": "Travailler une semaine de fonctionnaire",
+			"en": "Work for 35 hours"
+		},
+		"runtime": 35
+	},
+	"tour_de_france": {
+		"translations": {
+			"fr": "Faire le tour de france (En voiture...)",
+			"en": "Do the tour de france (In car...)"
+		},
+		"runtime": 43
+	},
+	"learn_language": {
+		"translations": {
+			"fr": "Apprendre une nouvelle langue",
+			"en": "Learn new language"
+		},
+		"runtime": 300
+	},
+	"addiction_certificate": {
+		"translations": {
+			"fr": "Obtenir un certificat de compétences sur le thème des addictions",
+			"en": "Get skills certificate on addiction theme"
+		},
+		"runtime": 400
+	},
+	"walk_from_paris_to_porto": {
+		"translations": {
+			"fr": "Marcher de Paris à Porto",
+			"en": "Walk from Paris to Porto"
+		},
+		"runtime": 417
+	},
+	"build_house": {
+		"translations": {
+			"fr": "Construire une maison de 100m²",
+			"en": "Build 100m² house"
+		},
+		"runtime": 2500
+	}
+}
