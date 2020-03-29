@@ -26,6 +26,8 @@ class TVShowProcessor {
           return Promise.resolve(undefined);
         }
 
+        
+
         // gets runtime and image
         const result = data.results[0];
         return TVShowProcessor.getTVShowRuntime(result.id)
@@ -34,6 +36,7 @@ class TVShowProcessor {
               title: result.name,
               posterPath: result.poster_path,
               runtime,
+              type: "tvshow",
             };
           })
           .catch(err => {
@@ -60,7 +63,7 @@ class TVShowProcessor {
         }
 
         const { data } = response;
-        if (data.episode_run_time === undefined) {
+        if (data.episode_run_time === undefined || data.episode_run_time.length === 0) {
           return Promise.resolve(undefined);
         }
 

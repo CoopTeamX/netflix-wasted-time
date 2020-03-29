@@ -35,38 +35,56 @@ class Processor {
       return Processor.getData(title, hashTitles[title]);
     });
 
-    Promise.all(promises).then(results => {});
+    Promise.all(promises)
+      .then(results => {
+        const totalRuntime = results.reduce((a, b) => a + b.totalRuntime, 0);
+        console.log(`total runtime: ${totalRuntime}`);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   // getData determines if the given title corresponds to a movie or a tv show and
   // returns title, runtime and poster
   static getData(title, nWatch) {
-    return MovieProcessor.getMovie(title)
-      .then(movie => {
-        if (movie !== undefined) {
-          console.log(
-            `movie found: \
-            - title: ${movie.title}, \
-            - runtime: (${movie.runtime} * ${nWatch}) = ${movie.runtime *
-              nWatch}, \
-            - poster: ${movie.posterPath}`
-          );
-          return;
+    // by default, it checks if a movie exists with the given title first.
+    let firstPromise = MovieProcessor.getMovie(title);
+    let secondPromise = TVShowProcessor.getTVShow(title);
+    if (nWatch > 1) {
+      firstPromise = TVShowProcessor.getTVShow(title);
+      secondPromise = MovieProcessor.getMovie(title);
+    }
+
+    return firstPromise
+      .then(media => {
+        if (media !== undefined) {
+          return Promise.resolve({
+            title: media.title,
+            totalRuntime:
+              media.runtime !== undefined ? media.runtime * nWatch : 0,
+            posterPath: media.posterPath,
+            type: media.type
+          });
         }
 
-        return TVShowProcessor.getTVShow(title.split(":")[0]).then(show => {
-          if (show === undefined) {
-            console.log(`show not found: ${title.split(":")[0]}`);
-            return;
+        return secondPromise.then(media => {
+          if (media !== undefined) {
+            return Promise.resolve({
+              title: media.title,
+              totalRuntime:
+                media.runtime !== undefined ? media.runtime * nWatch : 0,
+              posterPath: media.posterPath,
+              type: media.type
+            });
           }
 
-          console.log(
-            `show found: \
-            - title: ${show.title}, \
-            - runtime: (${show.runtime} * ${nWatch}) = ${show.runtime *
-              nWatch}, \
-            - poster: ${show.posterPath}`
-          );
+          console.log(`media not found: ${title}`);
+          return Promise.resolve({
+            title: "",
+            totalRuntime: 0,
+            posterPath: ""
+          });
         });
       })
       .catch(err => {

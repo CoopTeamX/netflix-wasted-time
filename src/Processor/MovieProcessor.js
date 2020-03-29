@@ -32,7 +32,8 @@ class MovieProcessor {
             return Promise.resolve({
               title: result.title,
               posterPath: result.poster_path,
-              runtime
+              runtime,
+              type: "movie",
             });
           })
           .catch(err => {
