@@ -1,0 +1,59 @@
+@import "../../App/App.scss";
+
+.main-center {
+  margin-top: 8%;
+  text-align: center;
+}
+
+.main-title {
+  color: $color-four;
+  font-size: 5em;
+  margin-bottom: 0;
+}
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1) rotate(-18deg);
+  }
+  50% {
+    transform: scale(1.2, 1.2) rotate(-18deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(-18deg);
+  }
+}
+
+.main-fact {
+  color: #896D54;
+  margin-left: 30%;
+  animation: zoominoutsinglefeatured 2s infinite;
+}
+
+.main-upload {
+  background-color: $color-two;
+  border-radius: 13px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3%;
+  padding-bottom: 2%;
+  width: 32%;
+}
+
+.sub-title {
+  color: $color-three;
+  font-size: 1.5em;
+  margin-bottom: 5%;
+}
+
+.advices {
+  display: flex;
+}
+
+.advice {
+  font-size: 1.2em;
+  margin-top: 8%;
+  margin-left: 15%;
+  padding-left: 1%;
+  width: 15%;
+}

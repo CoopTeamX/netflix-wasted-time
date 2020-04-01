@@ -1,16 +1,18 @@
-.App {
-  text-align: center;
-}
+$color-one : #1F2633;
+$color-two: #2A313F;
+$color-three: #7C87D7;
+$color-four: white;
 
-.App-logo {
-  height: 20vmin;
-  pointer-events: none;
-}
+// 7B86D6
+// E77E71
+// DCA874
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  background-color: $color-one;
+  color: $color-four;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif
 }
 
 .App-header {

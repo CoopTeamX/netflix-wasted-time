@@ -1,13 +1,11 @@
-import './App.css';
-import logo from './logo.svg';
+import './App.scss';
 import React from 'react';
-import FileReader from "../FileReader/FileReader";
+import HomePage from "../Components/HomePage/HomePage";
 
 function App() {
   return (
     <div className="App">
-        <img src={logo} className="App-logo" alt="logo" />
-         <FileReader/>
+         <HomePage/>
     </div>
   );
 }
