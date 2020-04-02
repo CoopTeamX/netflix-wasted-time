@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { TMDB } from "../config";
+import { TMDB, TYPE } from "../config";
 
 class MovieProcessor {
   // getMovie calls the tmdb api to get informations
@@ -32,12 +32,20 @@ class MovieProcessor {
             return Promise.resolve({
               title: result.title,
               posterPath: result.poster_path,
-              runtime,
-              type: "movie",
+              runtime: runtime !== undefined && runtime !== null ? runtime : 0,
+              type: TYPE.MOVIE,
+              genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
             });
           })
           .catch(err => {
-            return Promise.reject(err);
+            console.error(err);
+            return Promise.resolve({
+              title: result.title,
+              posterPath: result.poster_path,
+              runtime: 0,
+              type: TYPE.MOVIE,
+              genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
+            });
           });
       })
       .catch(err => {
@@ -45,7 +53,7 @@ class MovieProcessor {
       });
   }
 
-  // getMovieRuntime get details about a movie corresponding
+  // getMovieRuntime gets details about a movie corresponding
   // to the given id and return its runtime.
   static getMovieRuntime(id) {
     return axios
@@ -61,6 +69,27 @@ class MovieProcessor {
 
         const { data } = response;
         return Promise.resolve(data.runtime);
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
+  }
+
+  // getGenres gets movie genres and returns them.
+  static getGenres() {
+    return axios
+      .request({
+        baseURL: `${TMDB.API_URL}`,
+        url: `/genre/movie/list?api_key=${TMDB.API_KEY}`,
+        responseType: "json"
+      })
+      .then(response => {
+        if (response.status !== 200) {
+          return Promise.reject(new Error(response.statusText));
+        }
+
+        const { genres } = response.data;
+        return Promise.resolve(genres);
       })
       .catch(err => {
         Promise.reject(err);
