@@ -1,9 +1,9 @@
 import Dropzone from 'react-dropzone';
-import React, {useCallback} from "react";
+import React from "react";
 import * as Papa from "papaparse";
 import "./HomePage.scss";
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
   constructor() {
     super();
     this.state = {data: {}};
@@ -51,5 +51,3 @@ class HomePage extends React.Component {
     );
   }
 }
-
-export default HomePage;

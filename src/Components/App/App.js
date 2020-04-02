@@ -1,5 +1,5 @@
 import React from 'react';
-import Content from "../Content/content";
+import Content from "../Content/Content";
 import './App.scss';
 
 export default function App() {

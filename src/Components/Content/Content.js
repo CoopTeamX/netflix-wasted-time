@@ -1,4 +1,5 @@
 import HomePage from "../HomePage/HomePage";
+import StatsPage from "../StatsPage/StatsPage";
 import React from "react";
 
 export default class Content extends React.Component {
@@ -16,8 +17,12 @@ export default class Content extends React.Component {
     return (
       <div>
         {
-          Object.keys(this.state.data).length === 0 ? <HomePage updateData={this.updateData}/> : <p>A venir</p>
+
+          // Object.keys(this.state.data).length === 0 ? <HomePage updateData={this.updateData}/> : <StatsPage/>
         }
+
+        <HomePage/>
+        <StatsPage/>
       </div>
     );
   }
