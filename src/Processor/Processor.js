@@ -71,7 +71,8 @@ class Processor {
           nMovies: movies.length,
           nTvShows: tvShows.length,
           nEpisodes: tvShows.reduce((a, b) => a + b.nWatch, 0),
-          dates: Processor.hashRuntimeByDate(results)
+          dates: Processor.hashRuntimeByDate(results),
+          highScoreDay: Processor.getHighScoreDay(results)
         };
         console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
       })
@@ -101,8 +102,7 @@ class Processor {
         if (media !== undefined) {
           return Promise.resolve({
             title: media.title,
-            totalRuntime:
-              media.runtime !== undefined ? media.runtime * nWatch : 0,
+            totalRuntime: media.runtime * nWatch,
             runtime: media.runtime,
             posterPath: media.posterPath,
             type: media.type,
@@ -116,8 +116,7 @@ class Processor {
           if (media !== undefined) {
             return Promise.resolve({
               title: media.title,
-              totalRuntime:
-                media.runtime !== undefined ? media.runtime * nWatch : 0,
+              totalRuntime: media.runtime * nWatch,
               runtime: media.runtime,
               posterPath: media.posterPath,
               type: media.type,
@@ -233,7 +232,10 @@ class Processor {
             runtime: media.runtime,
             counter: 1
           };
-        } else if (media.runtime !== undefined) {
+        } else if (
+          hashDates[weekDay] !== undefined &&
+          media.runtime !== undefined
+        ) {
           hashDates[weekDay].runtime += media.runtime;
           hashDates[weekDay].counter += 1;
         }
@@ -243,6 +245,39 @@ class Processor {
     return Object.keys(hashDates).map(
       day => hashDates[day].runtime / hashDates[day].counter
     );
+  }
+
+  static getHighScoreDay(medias) {
+    const hashDates = {};
+    for (let i = 0; i < medias.length; i += 1) {
+      const media = medias[i];
+      for (let j = 0; j < media.dates.length; j += 1) {
+        const date = media.dates[j];
+        if (hashDates[date] === undefined && media.runtime !== undefined) {
+          hashDates[date] = media.runtime;
+        } else if (
+          hashDates[date] !== undefined &&
+          media.runtime !== undefined
+        ) {
+          hashDates[date] += media.runtime;
+        }
+      }
+    }
+
+    // gets high score
+    let max = {
+      runtime: 0,
+      date: undefined
+    };
+    for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
+      const date = Object.keys(hashDates)[i];
+      if (hashDates[date] > max.runtime) {
+        max.runtime = hashDates[date];
+        max.date = date;
+      }
+    }
+
+    return max;
   }
 }
 
