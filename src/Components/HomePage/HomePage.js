@@ -1,52 +1,25 @@
-import React from "react";
+import Dropzone from 'react-dropzone';
+import React, {useCallback} from "react";
 import * as Papa from "papaparse";
-import Processor from "../../Processor/Processor";
 import "./HomePage.scss";
 
 class HomePage extends React.Component {
   constructor() {
     super();
-    this.state = {
-      csvfile: undefined
-    };
-    this.data = {};
-    this.updateData = this.updateData.bind(this);
+    this.state = {data: {}};
   }
 
-  handleChange = event => {
-    this.setState({
-      csvfile: event.target.files[0]
-    });
+  readFiles(acceptedFiles) {
+    acceptedFiles.forEach((file) => {
+      Papa.parse(file, {
+        complete: function(results) {
+          this.props.updateData(results.data);
+        }.bind(this)
+      });
+    })
   };
-
-  importCSV = () => {
-    const { csvfile } = this.state;
-    Papa.parse(csvfile, {
-      complete: this.updateData,
-      header: true
-    });
-  };
-
-  updateData(result) {
-    this.setState({ data: result.data });
-    Processor.process(result.data);
-  }
 
   render() {
-
-    /*<input
-      className="csv-input"
-      type="file"
-      ref={input => {
-        this.filesInput = input;
-      }}
-      name="file"
-      placeholder={null}
-      onChange={this.handleChange}
-    />*/
-
-    // todo manage drag and drop file
-
     return (
       <div>
         <div className="main-center">
@@ -54,8 +27,17 @@ class HomePage extends React.Component {
           <p className="main-fact">Netflix was originally called Kibble</p>
 
           <div className="main-upload">
-            <div className="main-title">Upload</div><br/>
-            <div className="sub-title">Drop your file here</div>
+            <Dropzone onDrop={acceptedFiles => this.readFiles(acceptedFiles)}>
+              {({getRootProps, getInputProps}) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <div className="main-title">Upload</div><br/>
+                      <div className="sub-title">Drop your file here</div>
+                    </div>
+                  </section>
+              )}
+            </Dropzone>
           </div>
           <div>Find out how to download your history</div>
         </div>
