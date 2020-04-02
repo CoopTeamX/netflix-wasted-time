@@ -1,7 +1,7 @@
 @import "../../App/App.scss";
 
 .main-center {
-  margin-top: 8%;
+  margin-top: 4%;
   text-align: center;
 }
 
@@ -24,18 +24,20 @@
 }
 
 .main-fact {
-  color: #896D54;
-  margin-left: 30%;
   animation: zoominoutsinglefeatured 2s infinite;
+  color: #896D54;
+  font-family: 'MinecraftiaRegular', serif;
+  margin-left: 30%;
 }
 
 .main-upload {
   background-color: $color-two;
   border-radius: 13px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 3%;
+  padding-top: 2%;
   padding-bottom: 2%;
   width: 32%;
 }

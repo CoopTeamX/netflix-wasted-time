@@ -54,15 +54,16 @@ class HomePage extends React.Component {
           <p className="main-fact">Netflix was originally called Kibble</p>
 
           <div className="main-upload">
-            <div className="main-title">Upload</div><br/><br/>
+            <div className="main-title">Upload</div><br/>
             <div className="sub-title">Drop your file here</div>
           </div>
+          <div>Find out how to download your history</div>
         </div>
 
         <div className="advices">
-          <div className="advice" style={{borderLeft: 'solid 8px #7B86D6'}}>Find out how many <br/>hours you've <br/>wasted on Netflix</div>
-          <div className="advice" style={{borderLeft: 'solid 8px #E77E71'}}>You'll see, it's not<br/> that bad...</div>
-          <div className="advice" style={{borderLeft: 'solid 8px #DCA874'}}>You feel even <br/>better after</div>
+          <div className="advice" style={{borderLeft: 'solid 8px #7B87DD'}}>Find out how many <br/>hours you've <br/>wasted on Netflix</div>
+          <div className="advice" style={{borderLeft: 'solid 8px #FF786B'}}>You'll see, it's not<br/> that bad...</div>
+          <div className="advice" style={{borderLeft: 'solid 8px #FBAF6A'}}>You feel even <br/>better after</div>
         </div>
       </div>
     );
