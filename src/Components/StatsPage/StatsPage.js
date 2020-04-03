@@ -11,15 +11,19 @@ export default class StatsPage extends React.Component {
   }
 
   render() {
-    const statsMovies = {
-    };
-
-    const statsTVShows = {
-    };
-
     const statsGenres = {
       labels: ['Comedy', 'Action', 'Romance', 'Fantasy'],
       values: [34, 15, 5, 20]
+    };
+
+    const statsMovies = {
+      labels: ['A', 'B', 'C'],
+      values: [300, 50, 100]
+    };
+
+    const statsTVShows = {
+      labels: ['D', 'E', 'F'],
+      values: [20, 12, 15]
     };
 
     const statsWeekly = {

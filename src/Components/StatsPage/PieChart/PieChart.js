@@ -10,14 +10,9 @@ export default class PieChart extends React.Component {
     // you only have to set those values thanks to this.props
 
     const data = {
-			labels: [
-				'Red',
-				'Blue',
-				'Yellow'
-			],
+			labels: this.props.data.labels,
 			datasets: [{
-				data: [300, 50, 100],
-
+				data: this.props.data.values,
 				backgroundColor: "#7C87D7",
 				hoverBackgroundColor: "#FF786B"
 			}]
