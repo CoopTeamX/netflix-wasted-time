@@ -1,5 +1,6 @@
 import React from "react";
 import BarChart from "./BarChart/BarChart";
+import PieChart from "./PieChart/PieChart";
 import StatsNumber from "./StatsNumber/StatsNumber";
 import "./StatsPage.scss";
 
@@ -10,6 +11,22 @@ export default class StatsPage extends React.Component {
   }
 
   render() {
+    const statsMovies = {
+    };
+
+    const statsTVShows = {
+    };
+
+    const statsGenres = {
+      labels: ['Comedy', 'Action', 'Romance', 'Fantasy'],
+      values: [34, 15, 5, 20]
+    };
+
+    const statsWeekly = {
+      labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+      values: [1, 2, 2, 1, 3, 5, 6]
+    };
+
     return (
       <div className="page--stats">
         <div className="stats">
@@ -18,8 +35,13 @@ export default class StatsPage extends React.Component {
             <StatsNumber title="TV shows" result="91:07"/>
             <StatsNumber title="Movie" result="52:25"/>
           </div>
-          <div>
-            <BarChart title="Genres"/>
+          <div className="stats--charts">
+            <BarChart title="Genres" data={statsGenres}/>
+            <div className="stats--pies chart">
+              <PieChart title="Top movies" data={statsMovies}/>
+              <PieChart title="Top TV shows" data={statsTVShows}/>
+            </div>
+            <BarChart title="Weekly stats" data={statsWeekly}/>
           </div>
         </div>
       </div>

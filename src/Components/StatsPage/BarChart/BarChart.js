@@ -8,14 +8,12 @@ export default class BarChart extends React.Component {
 
   render() {
     // you only have to set those values thanks to this.props
-    const labels = ['Comedy', 'Action', 'Romance', 'Fantasy'];
-    const values = [34, 15, 5, 20];
 
     const data = {
-      labels: labels,
+      labels: this.props.data.labels,
       datasets: [{
         backgroundColor: 'rgba(255,255,255)',
-        data: values,
+        data: this.props.data.values,
         fontColor: "#7C87D7",
         fontSize: 24,
       }]
@@ -23,9 +21,7 @@ export default class BarChart extends React.Component {
 
     const options = {
       legend: {
-        display: false,
-        fontColor: "#7C87D7",
-        fontSize: 24,
+        display: false
       },
 
       scales: {
@@ -50,7 +46,7 @@ export default class BarChart extends React.Component {
             beginAtZero: true,
             fontColor: "#7C87D7",
             fontSize: 20,
-            max: Math.max.apply(this, values),
+            max: Math.max.apply(this, this.props.data.values),
             callback: function(value, index, values) {
               if (index === 0) return Math.max.apply(this, values);
               else return '';
@@ -65,11 +61,12 @@ export default class BarChart extends React.Component {
     return (
       <div className="chart stats--bar-chart">
         <div className="stats--title">{this.props.title}</div>
+        <div className="stats--legend-bar">Hours</div>
         <Bar
           data={data}
           options={options}
           width={100}
-          height={50}
+          height={80}
         />
       </div>
     );
