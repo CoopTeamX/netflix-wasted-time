@@ -19,7 +19,7 @@ export default class PieChart extends React.Component {
 				data: [300, 50, 100],
 
 				backgroundColor: "#7C87D7",
-				hoverBackgroundColor: "#7C87D7"
+				hoverBackgroundColor: "#FF786B"
 			}]
 		};
 		
