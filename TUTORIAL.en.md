@@ -15,3 +15,7 @@
 4. Download all your viewing activity
 
 ![Viewing activity page](.github/tutorial/en/activity.png "Viewing activity page")
+
+5. Upload your viewing activity on `Wasted on Netflix`
+
+# @TODO: add image here

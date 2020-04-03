@@ -15,3 +15,7 @@
 4. Téléchargez votre historique
 
 ![Page d'historique Netflix](.github/tutorial/fr/activity.png "Page d'historique Netflix")
+
+5. Envoyer votre historique sur `Wasted on Netflix`
+
+# @TODO: add image here
