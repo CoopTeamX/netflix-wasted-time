@@ -33,7 +33,7 @@ export default class HomePage extends React.Component {
                     <div {...getRootProps()}>
                       <input {...getInputProps()} />
                       <div className="main-title">Upload</div><br/>
-                      <div className="sub-title">Drop your file here</div>
+                      <div className="sub-title">Drop your file or click here</div>
                     </div>
                   </section>
               )}
