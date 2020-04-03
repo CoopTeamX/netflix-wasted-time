@@ -21,8 +21,8 @@ export default class Content extends React.Component {
           // Object.keys(this.state.data).length === 0 ? <HomePage updateData={this.updateData}/> : <StatsPage/>
         }
 
-        <HomePage/>
-        <StatsPage/>
+        <HomePage updateData={this.updateData}/>
+        <StatsPage data={this.state.data}/>
       </div>
     );
   }
