@@ -14,4 +14,4 @@
 
 4. Download all your viewing activity
 
-![Viewing activity page](.github/tutorial/en/history.png "Viewing activity page")
+![Viewing activity page](.github/tutorial/en/activity.png "Viewing activity page")
