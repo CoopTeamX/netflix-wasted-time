@@ -29,9 +29,24 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
+### deployment with docker
+
+```sh
+$ cp src/config.blank.js src/config.js
+
+# populate src/config.js and run
+$ docker build -t coopteamx/netflix-wasted-time .
+
+# run docker container
+$ docker-compose up -d
+# or
+$ docker run -d -p 8000:80 coopteamx/netflix-wasted-time
+```
+
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 ### Authors
+
 @Fberrez @Chimanos @ThomasCaud
