@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  netflix-wasted-time:
+    image: coopteamx/netflix-wasted-time
+    build: .
+    container_name: netflix-wasted-time
+    ports:
+      - 8000:80
