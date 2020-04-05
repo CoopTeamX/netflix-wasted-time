@@ -10,8 +10,8 @@ export default class Comparison extends React.Component {
       <div className="chart">
         <div className="stats--title">You could've...</div>
         <div className="comparison-content">
-          {this.props.data.map((value, index) => {
-            return <p>...{value.first} <span className="comparison-number">{value.second} </span><span>{value.third}</span></p>
+          {this.props.data.map((value, key) => {
+            return <p key={"comp-content--" + key}>...{value.first} <span className="comparison-number">{value.second} </span><span>{value.third}</span></p>
           })}
         </div>
       </div>
