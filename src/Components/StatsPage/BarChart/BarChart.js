@@ -57,7 +57,7 @@ export default class BarChart extends React.Component {
     return (
       <div className="chart stats--bar-chart">
         <div className="stats--title">{this.props.title}</div>
-        <div className="stats--legend-bar">Hours</div>
+        <div className="stats--legend-bar">Minutes</div>
         <Bar
           data={data}
           options={options}

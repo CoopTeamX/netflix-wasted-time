@@ -13,8 +13,8 @@ export default class StatsPage extends React.Component {
 
   render() {
     const statsGenres = {
-      labels: ['Comedy', 'Action', 'Romance', 'Fantasy'],
-      values: [34, 15, 5, 20]
+      labels: this.props.stats.genres.genreList,
+      values: this.props.stats.genres.runtimeList
     };
 
     const statsMovies = {
@@ -36,9 +36,9 @@ export default class StatsPage extends React.Component {
       <div className="page--stats">
         <div className="stats">
           <div className="stats--runtime">
-            <StatsNumber title="Total time" results={["143:32"]}/>
-            <StatsNumber title="TV shows" results={["91:07"]}/>
-            <StatsNumber title="Movie" results={["52:25"]}/>
+            <StatsNumber title="Total time" results={[this.props.stats.timeTotal]}/>
+            <StatsNumber title="TV shows" results={[this.props.stats.timeTvShows]}/>
+            <StatsNumber title="Movies" results={[this.props.stats.timeMovies]}/>
           </div>
           <div className="stats--charts">
             <BarChart title="Genres" data={statsGenres}/>
@@ -48,7 +48,7 @@ export default class StatsPage extends React.Component {
             </div>
             <BarChart title="Weekly stats" data={statsWeekly}/>
           </div>
-          <Conclusion/>
+          <Conclusion stats={this.props.stats.conclusion}/>
         </div>
       </div>
     );

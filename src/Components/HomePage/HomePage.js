@@ -12,6 +12,7 @@ export default class HomePage extends React.Component {
   readFiles(acceptedFiles) {
     acceptedFiles.forEach((file) => {
       Papa.parse(file, {
+        header: true,
         complete: function(results) {
           this.props.updateData(results.data);
         }.bind(this)

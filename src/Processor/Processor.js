@@ -73,7 +73,9 @@ class Processor {
           nEpisodes: tvShows.reduce((a, b) => a + b.nWatch, 0),
           dates: Processor.hashRuntimeByDate(results)
         };
-        console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
+
+        return resume;
+        // console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
       })
       .catch(err => {
         console.error(err);
