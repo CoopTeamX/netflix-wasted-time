@@ -32,7 +32,7 @@ class MovieProcessor {
             return Promise.resolve({
               title: result.title,
               posterPath: result.poster_path,
-              runtime,
+              runtime: runtime !== undefined && runtime !== null ? runtime : 0,
               type: TYPE.MOVIE,
               genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
             });
@@ -42,7 +42,7 @@ class MovieProcessor {
             return Promise.resolve({
               title: result.title,
               posterPath: result.poster_path,
-              runtime: undefined,
+              runtime: 0,
               type: TYPE.MOVIE,
               genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
             });

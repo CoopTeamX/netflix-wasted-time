@@ -32,9 +32,12 @@ class TVShowProcessor {
             return {
               title: result.name,
               posterPath: result.poster_path,
-              runtime,
+              runtime: runtime !== undefined && runtime !== null ? runtime : 0,
               type: TYPE.TVSHOW,
-              genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
+              genreIDs:
+                result.genre_ids !== undefined && result.genre_ids !== null
+                  ? result.genre_ids
+                  : []
             };
           })
           .catch(err => {
@@ -42,9 +45,12 @@ class TVShowProcessor {
             return Promise.resolve({
               title: result.name,
               posterPath: result.poster_path,
-              runtime: undefined,
+              runtime: 0,
               type: TYPE.TVSHOW,
-              genreIDs: result.genre_ids !== undefined ? result.genre_ids : []
+              genreIDs:
+                result.genre_ids !== undefined && result.genre_ids !== null
+                  ? result.genre_ids
+                  : []
             });
           });
       })

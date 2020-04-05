@@ -20,6 +20,7 @@ export default class Content extends React.Component {
   }
 
   getFormatedData = (data) => {
+    console.log(JSON.stringify(data));
     return {
       "timeTotal": this.getDisplayedTime(data.runtimes.total),
       "timeTvShows": this.getDisplayedTime(data.runtimes.tvShows),
