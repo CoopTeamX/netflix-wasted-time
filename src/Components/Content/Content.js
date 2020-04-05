@@ -53,7 +53,7 @@ export default class Content extends React.Component {
         "runtimeList": data.tvShows.map(tvShow => tvShow.totalRuntime),
       },
       "weekly": {
-        "meanByDay": data.dates.map(mean => Math.trunc(mean))
+        "meanByDay": data.dates.map(mean => Math.trunc(mean.average))
       },
       "conclusion" : {
         "comparisons": rawActivities.activities.map(activity => this.getFormatedComparison(activity.translations.en, (data.runtimes.total / 60 / activity.runtime))),

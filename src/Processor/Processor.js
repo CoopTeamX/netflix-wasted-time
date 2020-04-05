@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import moment from "moment";
 
@@ -56,7 +55,7 @@ class Processor {
         // isolates genres
         const genres = results.splice(-1, 1)[0];
 
-        Promise.all([
+        return Promise.all([
           Processor.reduceRuntimeByType(results, TYPE.TVSHOW),
           Processor.reduceRuntimeByType(results, TYPE.MOVIE),
           Processor.hashRuntimeByGenre(results, genres),
@@ -79,7 +78,7 @@ class Processor {
               dates: processedResults[3],
               highScoreDay: processedResults[4],
             };
-            return resume;
+            return Promise.resolve(resume);
           })
           .catch((err) => {
             console.error(err);
@@ -135,7 +134,6 @@ class Processor {
             });
           }
 
-          console.log(`media not found: ${title}`);
           return Promise.resolve({
             title: "",
             totalRuntime: 0,
@@ -258,14 +256,14 @@ class Processor {
         }
       }
 
-      // calculates average
-      for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
-        const weekDay = Object.keys(hashDates)[i];
-        hashDates[weekDay].average =
-          hashDates[weekDay].runtime / hashDates[weekDay].counter;
-      }
-
-      return resolve(hashDates);
+      return resolve(
+        Object.keys(hashDates).map((day) => {
+          return {
+            day,
+            average: hashDates[day].runtime / hashDates[day].counter,
+          };
+        })
+      );
     });
   }
 
