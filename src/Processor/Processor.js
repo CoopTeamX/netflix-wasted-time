@@ -5,11 +5,6 @@ import { TMDB, TYPE } from "../config";
 import TVShowProcessor from "./TVShowProcessor";
 import MovieProcessor from "./MovieProcessor";
 
-const imageSizes = {
-  w500: "w500",
-  original: "original"
-};
-
 class Processor {
   // process processes the given rows
   // and return an array containing data about each rows
@@ -27,7 +22,7 @@ class Processor {
         if (hashTitles[splitTitle] === undefined) {
           hashTitles[splitTitle] = {
             nWatch: 0,
-            dates: []
+            dates: [],
           };
         }
 
@@ -37,7 +32,7 @@ class Processor {
     }
 
     // makes one promise by title
-    const promises = Object.keys(hashTitles).map(title => {
+    const promises = Object.keys(hashTitles).map((title) => {
       return Processor.getData(
         title,
         hashTitles[title].nWatch,
@@ -49,34 +44,47 @@ class Processor {
     promises.push(Processor.getGenres());
 
     return Promise.all(promises)
-      .then(results => {
+      .then((results) => {
         const movies = results
-          .filter(result => result.type === TYPE.MOVIE)
+          .filter((result) => result.type === TYPE.MOVIE)
           .sort((a, b) => b.totalRuntime - a.totalRuntime);
         const tvShows = results
-          .filter(result => result.type === TYPE.TVSHOW)
+          .filter((result) => result.type === TYPE.TVSHOW)
           .sort((a, b) => b.totalRuntime - a.totalRuntime);
 
         // isolates genres
         const genres = results.splice(-1, 1)[0];
-        const resume = {
-          runtimes: {
-            total: results.reduce((a, b) => a + b.totalRuntime, 0),
-            tvShows: Processor.reduceRuntimeByType(results, TYPE.TVSHOW),
-            movies: Processor.reduceRuntimeByType(results, TYPE.MOVIE)
-          },
-          movies,
-          tvShows,
-          genres: Processor.hashRuntimeByGenre(results, genres),
-          nMovies: movies.length,
-          nTvShows: tvShows.length,
-          nEpisodes: tvShows.reduce((a, b) => a + b.nWatch, 0),
-          dates: Processor.hashRuntimeByDate(results),
-          highScoreDay: Processor.getHighScoreDay(results)
-        };
-        console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
+
+        Promise.all([
+          Processor.reduceRuntimeByType(results, TYPE.TVSHOW),
+          Processor.reduceRuntimeByType(results, TYPE.MOVIE),
+          Processor.hashRuntimeByGenre(results, genres),
+          Processor.hashRuntimeByDate(results),
+          Processor.getHighScoreDay(results),
+        ])
+          .then((processedResults) => {
+            const resume = {
+              runtimes: {
+                total: results.reduce((a, b) => a + b.totalRuntime, 0),
+                tvShows: processedResults[0],
+                movies: processedResults[1],
+              },
+              movies,
+              tvShows,
+              genres: processedResults[2],
+              nMovies: movies.length,
+              nTvShows: tvShows.length,
+              nEpisodes: tvShows.reduce((a, b) => a + b.nWatch, 0),
+              dates: processedResults[3],
+              highScoreDay: processedResults[4],
+            };
+            console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
@@ -98,7 +106,7 @@ class Processor {
     }
 
     return firstPromise
-      .then(media => {
+      .then((media) => {
         if (media !== undefined) {
           return Promise.resolve({
             title: media.title,
@@ -108,11 +116,11 @@ class Processor {
             type: media.type,
             genreIDs: media.genreIDs,
             nWatch,
-            dates
+            dates,
           });
         }
 
-        return secondPromise.then(media => {
+        return secondPromise.then((media) => {
           if (media !== undefined) {
             return Promise.resolve({
               title: media.title,
@@ -122,7 +130,7 @@ class Processor {
               type: media.type,
               genreIDs: media.genreIDs,
               nWatch,
-              dates
+              dates,
             });
           }
 
@@ -135,26 +143,29 @@ class Processor {
             type: TYPE.UNKNOWN,
             genreIDs: [],
             nWatch,
-            dates
+            dates,
           });
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
 
+  // getGenres returns an array containing movie and tv show genres.
   static getGenres() {
-    return Promise.all([
-      MovieProcessor.getGenres(),
-      TVShowProcessor.getGenres()
-    ])
-      .then(genres => {
-        return Promise.resolve(genres[0].concat(genres[1]));
-      })
-      .catch(err => {
-        return Promise.reject(err);
-      });
+    return new Promise((resolve, reject) => {
+      return Promise.all([
+        MovieProcessor.getGenres(),
+        TVShowProcessor.getGenres(),
+      ])
+        .then((genres) => {
+          return resolve(genres[0].concat(genres[1]));
+        })
+        .catch((err) => {
+          return reject(err);
+        });
+    });
   }
 
   // getImage returns the image data of the given poster path.
@@ -166,16 +177,16 @@ class Processor {
     return axios
       .request({
         baseURL: `${TMDB.IMAGE_URL}`,
-        url: `${size}${posterPath}`
+        url: `${size}${posterPath}`,
       })
-      .then(response => {
+      .then((response) => {
         if (response.status !== 200) {
           return Promise.reject(new Error(response.statusText));
         }
 
         return Promise.resolve(response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         return Promise.error(err);
       });
   }
@@ -192,92 +203,104 @@ class Processor {
   // hashRuntimeByGenre hashes the array of medias to a hashmap `{ genreName: totalRuntime }`
   // and returns an array of objects sorted by runtime.
   static hashRuntimeByGenre(medias, genres) {
-    const runtimesByGenre = {};
-    for (let i = 0; i < medias.length; i += 1) {
-      const media = medias[i];
-      for (let j = 0; j < media.genreIDs.length; j += 1) {
-        const genreID = media.genreIDs[j];
+    return new Promise((resolve) => {
+      const runtimesByGenre = {};
+      for (let i = 0; i < medias.length; i += 1) {
+        const media = medias[i];
+        for (let j = 0; j < media.genreIDs.length; j += 1) {
+          const genreID = media.genreIDs[j];
 
-        // gets human-readable name
-        const genre = genres.find(g => g.id === parseInt(genreID, 10));
-        if (runtimesByGenre[genre.name] === undefined) {
-          runtimesByGenre[genre.name] = 0;
+          // gets human-readable name
+          const genre = genres.find((g) => g.id === parseInt(genreID, 10));
+          if (runtimesByGenre[genre.name] === undefined) {
+            runtimesByGenre[genre.name] = 0;
+          }
+
+          runtimesByGenre[genre.name] += media.totalRuntime;
         }
-
-        runtimesByGenre[genre.name] += media.totalRuntime;
       }
-    }
 
-    // converts to an array of objects
-    const runtimes = Object.keys(runtimesByGenre).map(genre => {
-      return { genre, runtime: runtimesByGenre[genre] };
+      // converts to an array of objects
+      const runtimes = Object.keys(runtimesByGenre).map((genre) => {
+        return { genre, runtime: runtimesByGenre[genre] };
+      });
+
+      // sorts by runtime: biggest runtimes first
+      runtimes.sort((a, b) => b.runtime - a.runtime);
+      return resolve(runtimes);
     });
-
-    // sorts by runtime: biggest runtimes first
-    runtimes.sort((a, b) => b.runtime - a.runtime);
-    return runtimes;
   }
 
   // hashRuntimeByDate hashes given medias by the weekday when they have been watched.
   // It returns an array mapping this hashmap where the value is the average of watching time by weekday.
+  // Its key is the isoweekday (1 = Monday, 7 = Sunday)
   static hashRuntimeByDate(medias) {
-    const hashDates = {};
-    for (let i = 0; i < medias.length; i += 1) {
-      const media = medias[i];
-      for (let j = 0; j < media.dates.length; j += 1) {
-        const date = media.dates[j];
-        const weekDay = moment(date, "DD/MM/YYYY").isoWeekday();
-        if (hashDates[weekDay] === undefined && media.runtime !== undefined) {
-          hashDates[weekDay] = {
-            runtime: media.runtime,
-            counter: 1
-          };
-        } else if (
-          hashDates[weekDay] !== undefined &&
-          media.runtime !== undefined
-        ) {
-          hashDates[weekDay].runtime += media.runtime;
-          hashDates[weekDay].counter += 1;
+    return new Promise((resolve) => {
+      const hashDates = {};
+      for (let i = 0; i < medias.length; i += 1) {
+        const media = medias[i];
+        for (let j = 0; j < media.dates.length; j += 1) {
+          const date = media.dates[j];
+          const weekDay = moment(date, "DD/MM/YYYY").isoWeekday();
+          if (hashDates[weekDay] === undefined && media.runtime !== undefined) {
+            hashDates[weekDay] = {
+              runtime: media.runtime,
+              counter: 1,
+            };
+          } else if (
+            hashDates[weekDay] !== undefined &&
+            media.runtime !== undefined
+          ) {
+            hashDates[weekDay].runtime += media.runtime;
+            hashDates[weekDay].counter += 1;
+          }
         }
       }
-    }
 
-    return Object.keys(hashDates).map(
-      day => hashDates[day].runtime / hashDates[day].counter
-    );
+      // calculates average
+      for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
+        const weekDay = Object.keys(hashDates)[i];
+        hashDates[weekDay].average =
+          hashDates[weekDay].runtime / hashDates[weekDay].counter;
+      }
+
+      return resolve(hashDates);
+    });
   }
 
   static getHighScoreDay(medias) {
-    const hashDates = {};
-    for (let i = 0; i < medias.length; i += 1) {
-      const media = medias[i];
-      for (let j = 0; j < media.dates.length; j += 1) {
-        const date = media.dates[j];
-        if (hashDates[date] === undefined && media.runtime !== undefined) {
-          hashDates[date] = media.runtime;
-        } else if (
-          hashDates[date] !== undefined &&
-          media.runtime !== undefined
-        ) {
-          hashDates[date] += media.runtime;
+    return new Promise((resolve) => {
+      const hashDates = {};
+      for (let i = 0; i < medias.length; i += 1) {
+        const media = medias[i];
+        for (let j = 0; j < media.dates.length; j += 1) {
+          const date = media.dates[j];
+          if (hashDates[date] === undefined && media.runtime !== undefined) {
+            hashDates[date] = media.runtime;
+          } else if (
+            hashDates[date] !== undefined &&
+            media.runtime !== undefined
+          ) {
+            hashDates[date] += media.runtime;
+          }
         }
       }
-    }
 
-    // gets high score
-    let max = {
-      runtime: 0,
-      date: undefined
-    };
-    for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
-      const date = Object.keys(hashDates)[i];
-      if (hashDates[date] > max.runtime) {
-        max.runtime = hashDates[date];
-        max.date = date;
+      // gets high score
+      let max = {
+        runtime: 0,
+        date: undefined,
+      };
+      for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
+        const date = Object.keys(hashDates)[i];
+        if (hashDates[date] > max.runtime) {
+          max.runtime = hashDates[date];
+          max.date = date;
+        }
       }
-    }
 
-    return max;
+      return resolve(max);
+    });
   }
 }
 
