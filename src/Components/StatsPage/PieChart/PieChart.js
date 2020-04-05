@@ -2,10 +2,6 @@ import React from "react";
 import { Pie } from 'react-chartjs-2';
 
 export default class PieChart extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     // you only have to set those values thanks to this.props
 
