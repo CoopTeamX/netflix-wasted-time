@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  netflix-wasted-time:
+    image: coopteamx/netflix-wasted-time
+    build: .
+    labels:
+      - traefik.backend=wasted-on-netflix
+      - traefik.frontend.rule=Host:wasted-on-netflix.com
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - proxy
+    container_name: netflix-wasted-time
+
+networks:
+  proxy:
+    external: true
