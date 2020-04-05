@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class Comparison extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className="chart">
