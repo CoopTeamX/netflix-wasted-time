@@ -23,11 +23,11 @@ export default class PieChart extends React.Component {
         <div className="stats--title">{this.props.title}</div>
         <div className="stats--legend">#1 {this.props.data.labels[0]}</div>
         <Pie
-					data={data}
-					height={50}
-					options={options}
-					width={100}
-				/>
+			data={data}
+			height={50}
+			options={options}
+			width={100}
+		/>
       </div>
     );
   }
