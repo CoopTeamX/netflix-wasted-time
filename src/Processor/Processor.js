@@ -22,7 +22,7 @@ class Processor {
         if (hashTitles[splitTitle] === undefined) {
           hashTitles[splitTitle] = {
             nWatch: 0,
-            dates: []
+            dates: [],
           };
         }
 
@@ -32,7 +32,7 @@ class Processor {
     }
 
     // makes one promise by title
-    const promises = Object.keys(hashTitles).map(title => {
+    const promises = Object.keys(hashTitles).map((title) => {
       return Processor.getData(
         title,
         hashTitles[title].nWatch,
@@ -44,12 +44,12 @@ class Processor {
     promises.push(Processor.getGenres());
 
     return Promise.all(promises)
-      .then(results => {
+      .then((results) => {
         const movies = results
-          .filter(result => result.type === TYPE.MOVIE)
+          .filter((result) => result.type === TYPE.MOVIE)
           .sort((a, b) => b.totalRuntime - a.totalRuntime);
         const tvShows = results
-          .filter(result => result.type === TYPE.TVSHOW)
+          .filter((result) => result.type === TYPE.TVSHOW)
           .sort((a, b) => b.totalRuntime - a.totalRuntime);
 
         // isolates genres
@@ -60,14 +60,14 @@ class Processor {
           Processor.reduceRuntimeByType(results, TYPE.MOVIE),
           Processor.hashRuntimeByGenre(results, genres),
           Processor.hashRuntimeByDate(results),
-          Processor.getHighScoreDay(results)
+          Processor.getHighScoreDay(results),
         ])
-          .then(processedResults => {
+          .then((processedResults) => {
             const resume = {
               runtimes: {
                 total: results.reduce((a, b) => a + b.totalRuntime, 0),
                 tvShows: processedResults[0],
-                movies: processedResults[1]
+                movies: processedResults[1],
               },
               movies,
               tvShows,
@@ -76,15 +76,15 @@ class Processor {
               nTvShows: tvShows.length,
               nEpisodes: tvShows.reduce((a, b) => a + b.nWatch, 0),
               dates: processedResults[3],
-              highScoreDay: processedResults[4]
+              highScoreDay: processedResults[4],
             };
             console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
           })
-          .catch(err => {
+          .catch((err) => {
             console.error(err);
           });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
@@ -106,7 +106,7 @@ class Processor {
     }
 
     return firstPromise
-      .then(media => {
+      .then((media) => {
         if (media !== undefined) {
           return Promise.resolve({
             title: media.title,
@@ -116,11 +116,11 @@ class Processor {
             type: media.type,
             genreIDs: media.genreIDs,
             nWatch,
-            dates
+            dates,
           });
         }
 
-        return secondPromise.then(media => {
+        return secondPromise.then((media) => {
           if (media !== undefined) {
             return Promise.resolve({
               title: media.title,
@@ -130,7 +130,7 @@ class Processor {
               type: media.type,
               genreIDs: media.genreIDs,
               nWatch,
-              dates
+              dates,
             });
           }
 
@@ -143,11 +143,11 @@ class Processor {
             type: TYPE.UNKNOWN,
             genreIDs: [],
             nWatch,
-            dates
+            dates,
           });
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }
@@ -157,12 +157,12 @@ class Processor {
     return new Promise((resolve, reject) => {
       return Promise.all([
         MovieProcessor.getGenres(),
-        TVShowProcessor.getGenres()
+        TVShowProcessor.getGenres(),
       ])
-        .then(genres => {
+        .then((genres) => {
           return resolve(genres[0].concat(genres[1]));
         })
-        .catch(err => {
+        .catch((err) => {
           return reject(err);
         });
     });
@@ -177,16 +177,16 @@ class Processor {
     return axios
       .request({
         baseURL: `${TMDB.IMAGE_URL}`,
-        url: `${size}${posterPath}`
+        url: `${size}${posterPath}`,
       })
-      .then(response => {
+      .then((response) => {
         if (response.status !== 200) {
           return Promise.reject(new Error(response.statusText));
         }
 
         return Promise.resolve(response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         return Promise.error(err);
       });
   }
@@ -203,7 +203,7 @@ class Processor {
   // hashRuntimeByGenre hashes the array of medias to a hashmap `{ genreName: totalRuntime }`
   // and returns an array of objects sorted by runtime.
   static hashRuntimeByGenre(medias, genres) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const runtimesByGenre = {};
       for (let i = 0; i < medias.length; i += 1) {
         const media = medias[i];
@@ -211,7 +211,7 @@ class Processor {
           const genreID = media.genreIDs[j];
 
           // gets human-readable name
-          const genre = genres.find(g => g.id === parseInt(genreID, 10));
+          const genre = genres.find((g) => g.id === parseInt(genreID, 10));
           if (runtimesByGenre[genre.name] === undefined) {
             runtimesByGenre[genre.name] = 0;
           }
@@ -221,7 +221,7 @@ class Processor {
       }
 
       // converts to an array of objects
-      const runtimes = Object.keys(runtimesByGenre).map(genre => {
+      const runtimes = Object.keys(runtimesByGenre).map((genre) => {
         return { genre, runtime: runtimesByGenre[genre] };
       });
 
@@ -233,8 +233,9 @@ class Processor {
 
   // hashRuntimeByDate hashes given medias by the weekday when they have been watched.
   // It returns an array mapping this hashmap where the value is the average of watching time by weekday.
+  // Its key is the isoweekday (1 = Monday, 7 = Sunday)
   static hashRuntimeByDate(medias) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const hashDates = {};
       for (let i = 0; i < medias.length; i += 1) {
         const media = medias[i];
@@ -244,7 +245,7 @@ class Processor {
           if (hashDates[weekDay] === undefined && media.runtime !== undefined) {
             hashDates[weekDay] = {
               runtime: media.runtime,
-              counter: 1
+              counter: 1,
             };
           } else if (
             hashDates[weekDay] !== undefined &&
@@ -256,16 +257,19 @@ class Processor {
         }
       }
 
-      return resolve(
-        Object.keys(hashDates).map(
-          day => hashDates[day].runtime / hashDates[day].counter
-        )
-      );
+      // calculates average
+      for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
+        const weekDay = Object.keys(hashDates)[i];
+        hashDates[weekDay].average =
+          hashDates[weekDay].runtime / hashDates[weekDay].counter;
+      }
+
+      return resolve(hashDates);
     });
   }
 
   static getHighScoreDay(medias) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const hashDates = {};
       for (let i = 0; i < medias.length; i += 1) {
         const media = medias[i];
@@ -285,7 +289,7 @@ class Processor {
       // gets high score
       let max = {
         runtime: 0,
-        date: undefined
+        date: undefined,
       };
       for (let i = 0; i < Object.keys(hashDates).length; i += 1) {
         const date = Object.keys(hashDates)[i];
