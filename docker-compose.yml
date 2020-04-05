@@ -4,6 +4,15 @@ services:
   netflix-wasted-time:
     image: coopteamx/netflix-wasted-time
     build: .
+    labels:
+      - traefik.backend=wasted-on-netflix
+      - traefik.frontend.rule=Host:wasted-on-netflix.com
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - proxy
     container_name: netflix-wasted-time
-    ports:
-      - 8000:80
+
+networks:
+  proxy:
+    external: true
