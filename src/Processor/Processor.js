@@ -80,7 +80,6 @@ class Processor {
               highScoreDay: processedResults[4],
             };
             return resume;
-            // console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
           })
           .catch((err) => {
             console.error(err);
