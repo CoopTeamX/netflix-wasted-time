@@ -18,18 +18,18 @@ export default class StatsPage extends React.Component {
     };
 
     const statsMovies = {
-      labels: ['A', 'B', 'C'],
-      values: [300, 50, 100]
+      labels: this.props.stats.movies.movieList,
+      values: this.props.stats.movies.runtimeList
     };
 
     const statsTVShows = {
-      labels: ['D', 'E', 'F'],
-      values: [20, 12, 15]
+      labels: this.props.stats.tvShows.tvShowList,
+      values: this.props.stats.tvShows.runtimeList
     };
 
     const statsWeekly = {
       labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
-      values: [1, 2, 2, 1, 3, 5, 6]
+      values: this.props.stats.weekly.meanByDay
     };
 
     return (

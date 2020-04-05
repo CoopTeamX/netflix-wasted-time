@@ -3,8 +3,6 @@ import { Pie } from 'react-chartjs-2';
 
 export default class PieChart extends React.Component {
   render() {
-    // you only have to set those values thanks to this.props
-
     const data = {
 			labels: this.props.data.labels,
 			datasets: [{
@@ -23,7 +21,7 @@ export default class PieChart extends React.Component {
     return (
       <div>
         <div className="stats--title">{this.props.title}</div>
-        <div className="stats--legend">#1 The Avengers</div>
+        <div className="stats--legend">#1 {this.props.data.labels[0]}</div>
         <Pie
 					data={data}
 					height={50}

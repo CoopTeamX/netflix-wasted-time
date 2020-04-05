@@ -21,7 +21,7 @@ export default class Conclusion extends React.Component {
       <div className="conclusion">
         <div style={{width: "50%", textAlign:"center"}}>
           <StatsNumberConclusion title="Resume" results={[this.props.stats.countMovies + " TV shows", this.props.stats.countEpisodes + " episodes", this.props.stats.countMovies + " movies"]}/>
-          <StatsNumberConclusion title="High score day" results={["12:45"]}/>
+          <StatsNumberConclusion title="High score day" results={[this.props.stats.highScoreDay.runtime]}/>
         </div>
         <div style={{width: "35%", textAlign:"center"}}>
           <Comparison data={dataComparison}/>

@@ -29,10 +29,25 @@ export default class Content extends React.Component {
         "genreList": data.genres.map(genre => genre.genre),
         "runtimeList": data.genres.map(genre => genre.runtime),
       },
+      "movies": {
+        "movieList": data.movies.map(movie => movie.title),
+        "runtimeList": data.movies.map(movie => movie.totalRuntime),
+      },
+      "tvShows": {
+        "tvShowList": data.tvShows.map(tvShow => tvShow.title),
+        "runtimeList": data.tvShows.map(tvShow => tvShow.totalRuntime),
+      },
+      "weekly": {
+        "meanByDay": data.dates.map(mean => Math.trunc(mean))
+      },
       "conclusion" : {
         "countMovies": data.nMovies,
         "countTvShows": data.nTvShows,
-        "countEpisodes": data.nEpisodes
+        "countEpisodes": data.nEpisodes,
+        "highScoreDay": {
+          "date": data.highScoreDay,
+          "runtime": this.getDisplayedTime(data.highScoreDay.runtime)
+        }
       }
     }
   }
