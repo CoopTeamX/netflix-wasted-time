@@ -1,16 +1,15 @@
-.App {
-  text-align: center;
-}
+$color-one : #1E2634;
+$color-two: #293140;
+$color-three: #7C87D7;
+$color-four: white;
 
-.App-logo {
-  height: 20vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: $color-one;
+  color: $color-four;
+  font-family: 'KarmaRegular', serif;
+  font-weight: bold;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .App-header {

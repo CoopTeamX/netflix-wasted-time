@@ -1,0 +1,99 @@
+@import "../App/App";
+
+.stats {
+  body {
+    font-family: 'KarmaRegular', serif;
+  }
+
+  .chart {
+    background-color: $color-two;
+    border-radius: 13px;
+    -webkit-box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+    box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+    padding: 1% 3% 1% 3%;
+    margin: 1%;
+  }
+
+  &--title {
+    color: $color-four;
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  &--runtime {
+    text-align: center;
+  }
+
+  &--number {
+    display: inline-block;
+    margin-left: 3%;
+    overflow-wrap: normal;
+    text-align: center;
+    width: 10%;
+
+    .result {
+      color: $color-three;
+      font-size: 3em;
+    }
+  }
+
+  &--number--conclusion {
+    display: inline-block;
+    margin-left: 3%;
+    margin-bottom: 5% !important;
+    overflow-wrap: normal;
+    text-align: center;
+    width: 50%;
+
+    .result {
+      color: $color-three;
+      font-size: 3em;
+    }
+  }
+
+  &--bar-chart {
+    width: 25%;
+  }
+
+  &--pies {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+  }
+
+  &--pie-chart {
+    width: 13%;
+  }
+
+  &--legend {
+    color: $color-three;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  &--legend-bar {
+    color: $color-three;
+    font-size: 1.5em;
+    margin-left: 1%;
+  }
+
+  &--charts {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .conclusion {
+    display: flex;
+    margin-top: 5%;
+
+    .comparison-number {
+      color: $color-three;
+    }
+
+    .comparison-content {
+      font-size: 1.5em;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@import "../App/App.scss";
+
+.main-center {
+  margin-top: 4%;
+  text-align: center;
+}
+
+.main-title {
+  color: $color-four;
+  font-size: 5em;
+  margin-bottom: 0;
+}
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1) rotate(-18deg);
+  }
+  50% {
+    transform: scale(1.2, 1.2) rotate(-18deg);
+  }
+  100% {
+    transform: scale(1, 1) rotate(-18deg);
+  }
+}
+
+.main-fact {
+  animation: zoominoutsinglefeatured 2s infinite;
+  color: #896D54;
+  font-family: 'MinecraftiaRegular', serif;
+  margin-left: 20%;
+}
+
+.main-upload {
+  background-color: $color-two;
+  border-radius: 13px;
+  -webkit-box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+  box-shadow: 17px 16px 33px -10px rgba(0,0,0,0.75);
+  margin-bottom: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  width: 32%;
+}
+
+.sub-title {
+  color: $color-three;
+  font-size: 1.5em;
+  margin-bottom: 5%;
+}
+
+.advices {
+  display: flex;
+}
+
+.advice {
+  font-size: 1.2em;
+  margin-top: 8%;
+  margin-left: 15%;
+  padding-left: 1%;
+  width: 15%;
+}

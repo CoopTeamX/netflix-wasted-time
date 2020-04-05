@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import moment from "moment";
 
@@ -78,7 +79,7 @@ class Processor {
               dates: processedResults[3],
               highScoreDay: processedResults[4],
             };
-            console.log(`resume: ${JSON.stringify(resume, undefined, "  ")}`);
+            return resume;
           })
           .catch((err) => {
             console.error(err);
