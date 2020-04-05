@@ -4,19 +4,6 @@ import StatsNumberConclusion from "./StatsNumberConclusion/StatsNumberConclusion
 
 export default class Conclusion extends React.Component {
   render() {
-    var dataComparison = [
-      {
-        "first": "Read",
-        "second": "2",
-        "third": "books instead."
-      },
-      {
-        "first": "Read",
-        "second": "3",
-        "third": "books instead."
-      }
-    ];
-
     return (
       <div className="conclusion">
         <div style={{width: "50%", textAlign:"center"}}>
@@ -24,7 +11,7 @@ export default class Conclusion extends React.Component {
           <StatsNumberConclusion title="High score day" results={[this.props.stats.highScoreDay.runtime]}/>
         </div>
         <div style={{width: "35%", textAlign:"center"}}>
-          <Comparison data={dataComparison}/>
+          <Comparison data={this.props.stats.comparisons}/>
         </div>
       </div>
     );

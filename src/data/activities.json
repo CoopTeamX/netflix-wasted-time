@@ -1,0 +1,95 @@
+{
+	"activities": [
+		{
+			"translations": {
+				"fr": "Regarder $Number snaps",
+				"en": "Look $Number snaps"
+			},
+			"runtime": 0.002777
+		},
+		{
+		"translations": {
+				"fr": "Lire $Number pages de ton livre",
+				"en": "Read $Number pages of your book"
+			},
+			"runtime": 0.017
+		},
+		{
+			"translations": {
+				"fr": "Courir $Number km à 7.5km/h",
+				"en": "Run $Number km at 7.5km/h (don't care about your retarded unit of measurement)"
+			},
+			"runtime": 0.14
+		},
+		{
+			"translations": {
+				"fr": "Savourer $Number bon kebabs",
+				"en": "Enjoy $Number good kebabs"
+			},
+			"runtime": 0.4
+		},
+		{
+			"translations": {
+				"fr": "Courir $Number marathons",
+				"en": "Run $Number marathons"
+			},
+			"runtime": 4.5
+		},
+		{
+			"translations": {
+				"fr": "Accoucher $Number fois de son premier enfant",
+				"en": "Give birth $Number times for the first time"
+			},
+			"runtime": 13
+		},
+		{
+			"translations": {
+				"fr": "Obtenir $Number fois ton permis de conduire",
+				"en": "Get $Number times your driver licence"
+			},
+			"runtime": 22
+		},
+		{
+			"translations": {
+				"fr": "Travailler $Number semaines de fonctionnaire",
+				"en": "Work for 35 hours $Number times"
+			},
+			"runtime": 35
+		},
+		{
+			"translations": {
+				"fr": "Faire $Number fois le tour de france (En voiture...)",
+				"en": "Do $Number times the tour de france (In car...)"
+			},
+			"runtime": 43
+		},
+		{
+			"translations": {
+				"fr": "Apprendre $Number nouvelles langues",
+				"en": "Learn $Number new languages"
+			},
+			"runtime": 300
+		},
+		{
+			"translations": {
+				"fr": "Obtenir $Number fois le certificat de compétences sur le thème des addictions",
+				"en": "Get skills certificate on addiction theme $Number times"
+			},
+			"runtime": 400
+		},
+		{
+			"translations": {
+				"fr": "Marcher de Paris à Porto $Number fois",
+				"en": "Walk from Paris to Porto $Number times"
+			},
+			"runtime": 417
+		},
+		{
+			"translations": {
+				"fr": "Construire $Number maison(s) de 100m²",
+				"en": "Build $Number 100m² house"
+			},
+			"runtime": 2500
+		}
+	]
+}
