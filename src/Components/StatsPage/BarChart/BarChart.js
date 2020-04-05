@@ -12,6 +12,7 @@ export default class BarChart extends React.Component {
         data: this.props.data.values,
         fontColor: "#7C87D7",
         fontSize: 24,
+				hoverBackgroundColor: "#FF786B"
       }]
     };
 

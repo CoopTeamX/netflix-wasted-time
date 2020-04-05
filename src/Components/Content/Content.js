@@ -14,10 +14,11 @@ export default class Content extends React.Component {
    * 128 return 2:08
    */
   getDisplayedTime = (time) => {
-    const h = Math.trunc(time / 60);
-    var m = time % 60;
+    var h = Math.trunc(time / 60);
+    h = h > 10 ? h : '0' + h;
+    var m = Math.trunc(time % 60);
     m = m > 10 ? m : '0' + m;
-    return h + ':' + m;
+    return h + ' h ' + m + ' min';
   }
 
   /**
@@ -36,21 +37,23 @@ export default class Content extends React.Component {
   // first, second, third
 
   getFormatedData = (data) => {
+    const sizeList = 10;
+
     return {
       "timeTotal": this.getDisplayedTime(data.runtimes.total),
       "timeTvShows": this.getDisplayedTime(data.runtimes.tvShows),
       "timeMovies": this.getDisplayedTime(data.runtimes.movies),
       "genres": {
-        "genreList": data.genres.map(genre => genre.genre),
-        "runtimeList": data.genres.map(genre => genre.runtime),
+        "genreList": data.genres.slice(0, sizeList).map(genre => genre.genre),
+        "runtimeList": data.genres.slice(0, sizeList).map(genre => genre.runtime),
       },
       "movies": {
-        "movieList": data.movies.map(movie => movie.title),
-        "runtimeList": data.movies.map(movie => movie.totalRuntime),
+        "movieList": data.movies.slice(0, sizeList).map(movie => movie.title),
+        "runtimeList": data.movies.slice(0, sizeList).map(movie => movie.totalRuntime),
       },
       "tvShows": {
-        "tvShowList": data.tvShows.map(tvShow => tvShow.title),
-        "runtimeList": data.tvShows.map(tvShow => tvShow.totalRuntime),
+        "tvShowList": data.tvShows.slice(0, sizeList).map(tvShow => tvShow.title),
+        "runtimeList": data.tvShows.slice(0, sizeList).map(tvShow => tvShow.totalRuntime),
       },
       "weekly": {
         "meanByDay": data.dates.map(mean => Math.trunc(mean.average))
@@ -69,9 +72,11 @@ export default class Content extends React.Component {
   }
 
   updateData = (data) => {
+    console.log(JSON.stringify(data));
     Processor.process(data)
     .then(res => {
       this.setState({stats: this.getFormatedData(res)});
+      console.log(JSON.stringify(this.getFormatedData(res)));
     });
   };
 
