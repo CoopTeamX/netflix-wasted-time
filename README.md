@@ -1,3 +1,6 @@
+## Production
+See https://wasted-on-netflix.com/
+
 ## Configuration
 
 Create file `config.js` based on `config.blank.js`.<br />
