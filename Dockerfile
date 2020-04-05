@@ -1,5 +1,5 @@
 # step 1: copy and build
-FROM node:12.16.1-alpine as react-build
+FROM node:12.16.1 as react-build
 WORKDIR /app
 COPY . ./
 RUN npm install --only-prod --no-audit
