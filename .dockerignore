@@ -4,3 +4,4 @@ node_modules
 build
 activities.json
 README.md
+src/__tests__/
