@@ -2,6 +2,7 @@ import Dropzone from 'react-dropzone';
 import React from "react";
 import * as Papa from "papaparse";
 import "./HomePage.scss";
+import Tutorial from "../Tutorial/Tutorial";
 
 export default class HomePage extends React.Component {
   constructor() {
@@ -40,7 +41,7 @@ export default class HomePage extends React.Component {
               )}
             </Dropzone>
           </div>
-          <div>Find out how to download your history</div>
+          <Tutorial/>
         </div>
 
         <div className="advices">
