@@ -3,8 +3,6 @@ import Modal from "react-modal";
 
 import "./Tutorial.scss";
 import loginImage from "./images/en/login.png";
-import mainImage from "./images/en/main.png";
-import accountImage from "./images/en/account.png";
 import activityImage from "./images/en/activity.png";
 
 export default class Tutorial extends Component {
