@@ -61,7 +61,7 @@ export default class Tutorial extends Component {
               <h2>1. Login to your Netflix account</h2>
               <img
                 src={loginImage}
-                class="modal-image"
+                className="modal-image"
                 alt="Netflix login page"
               />
               <h2>
@@ -76,7 +76,7 @@ export default class Tutorial extends Component {
               <h2>3. Download all your viewing activity</h2>
               <img
                 src={activityImage}
-                class="modal-image"
+                className="modal-image"
                 alt="Viewing activity page"
               />
               <h2>4. Upload your viewing activity on "Wasted on Netflix" !</h2>

@@ -230,17 +230,46 @@ class Processor {
     });
   }
 
+  // getLocale determines the date format.
+  // It returns the date format that must be used.
+  static getLocale(medias) {
+    let i = 0;
+    while (i < medias.length) {
+      const media = medias[i];
+      let j = 0;
+      while (j < media.dates.length) {
+        const date = media.dates[j];
+        const first = date.split("/")[0];
+        const second = date.split("/")[1];
+        if (first > 12) {
+          return "DD/MM/YYYY";
+        }
+
+        if (second > 12) {
+          return "MM/DD/YYYY";
+        }
+        j += 1;
+      }
+
+      i += 1;
+    }
+
+    return "MM/DD/YYYY";
+  }
+
   // hashRuntimeByDate hashes given medias by the weekday when they have been watched.
   // It returns an array of objects where each object is a weekday (1 = Monday, 7 = Sunday) and average,
   // the average of viewing time by weekday.
   static hashRuntimeByDate(medias) {
+    const format = Processor.getLocale(medias);
+    Processor.getLocale(medias);
     return new Promise((resolve) => {
       const hashDates = {};
       for (let i = 0; i < medias.length; i += 1) {
         const media = medias[i];
         for (let j = 0; j < media.dates.length; j += 1) {
           const date = media.dates[j];
-          const weekDay = moment(date, "DD/MM/YYYY").isoWeekday();
+          const weekDay = moment(date, format).isoWeekday();
           if (hashDates[weekDay] === undefined && media.runtime !== undefined) {
             hashDates[weekDay] = {
               dates: [date],
