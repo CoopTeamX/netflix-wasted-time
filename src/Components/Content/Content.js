@@ -72,11 +72,9 @@ export default class Content extends React.Component {
   }
 
   updateData = (data) => {
-    console.log(JSON.stringify(data));
     Processor.process(data)
     .then(res => {
       this.setState({stats: this.getFormatedData(res)});
-      console.log(JSON.stringify(this.getFormatedData(res)));
     });
   };
 

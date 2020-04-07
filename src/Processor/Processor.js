@@ -231,8 +231,8 @@ class Processor {
   }
 
   // hashRuntimeByDate hashes given medias by the weekday when they have been watched.
-  // It returns an array mapping this hashmap where the value is the average of watching time by weekday.
-  // Its key is the isoweekday (1 = Monday, 7 = Sunday)
+  // It returns an array of objects where each object is a weekday (1 = Monday, 7 = Sunday) and average, 
+  // the average of viewing time by weekday.
   static hashRuntimeByDate(medias) {
     return new Promise((resolve) => {
       const hashDates = {};
@@ -243,15 +243,19 @@ class Processor {
           const weekDay = moment(date, "DD/MM/YYYY").isoWeekday();
           if (hashDates[weekDay] === undefined && media.runtime !== undefined) {
             hashDates[weekDay] = {
+              dates: [],
               runtime: media.runtime,
-              counter: 1,
             };
-          } else if (
-            hashDates[weekDay] !== undefined &&
+          }
+          else if (
+            hashDates[weekDay]!== undefined &&
             media.runtime !== undefined
           ) {
+            if (hashDates[weekDay].dates.indexOf(date) === -1) {
+              hashDates[weekDay].dates.push(date);
+            }
+
             hashDates[weekDay].runtime += media.runtime;
-            hashDates[weekDay].counter += 1;
           }
         }
       }
@@ -260,7 +264,7 @@ class Processor {
         Object.keys(hashDates).map((day) => {
           return {
             day,
-            average: hashDates[day].runtime / hashDates[day].counter,
+            average: hashDates[day].runtime / hashDates[day].dates.length,
           };
         })
       );
