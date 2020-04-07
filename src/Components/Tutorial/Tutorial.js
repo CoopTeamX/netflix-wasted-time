@@ -60,31 +60,28 @@ export default class Tutorial extends Component {
               </button>
             </div>
             <div className="modal-body">
-              <h2>1. Login to your netflix account</h2>
+              <h2>1. Login to your Netflix account</h2>
               <img
                 src={loginImage}
                 class="modal-image"
                 alt="Netflix login page"
               />
-              <h2>2. Go to your account settings</h2>
-              <img
-                src={mainImage}
-                class="modal-image"
-                alt="Netflix main page"
-              />
-              <h2>3. Go to you viewing activity</h2>
-              <img
-                src={accountImage}
-                class="modal-image"
-                alt="Netflix account settings"
-              />
-              <h2>4. Download all your viewing activity</h2>
+              <h2>
+                2. Go to your{" "}
+                <a
+                  target="blank_"
+                  href="https://www.netflix.com/viewingactivity"
+                >
+                  viewing activity
+                </a>
+              </h2>
+              <h2>3. Download all your viewing activity</h2>
               <img
                 src={activityImage}
                 class="modal-image"
                 alt="Viewing activity page"
               />
-              <h2>5. Upload your viewing activity on `Wasted on Netflix`</h2>
+              <h2>4. Upload your viewing activity on "Wasted on Netflix" !</h2>
             </div>
             <div className="modal-footer">
               <button
