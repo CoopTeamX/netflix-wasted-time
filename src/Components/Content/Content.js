@@ -45,7 +45,7 @@ export default class Content extends React.Component {
       "timeMovies": this.getDisplayedTime(data.runtimes.movies),
       "genres": {
         "genreList": data.genres.slice(0, sizeList).map(genre => genre.genre),
-        "runtimeList": data.genres.slice(0, sizeList).map(genre => genre.runtime),
+        "runtimeList": data.genres.slice(0, sizeList).map(genre => Math.trunc(genre.runtime)),
       },
       "movies": {
         "movieList": data.movies.slice(0, sizeList).map(movie => movie.title),
@@ -72,11 +72,9 @@ export default class Content extends React.Component {
   }
 
   updateData = (data) => {
-    console.log(JSON.stringify(data));
     Processor.process(data)
     .then(res => {
       this.setState({stats: this.getFormatedData(res)});
-      console.log(JSON.stringify(this.getFormatedData(res)));
     });
   };
 

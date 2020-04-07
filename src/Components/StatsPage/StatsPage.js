@@ -28,7 +28,7 @@ export default class StatsPage extends React.Component {
     };
 
     const statsWeekly = {
-      labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
       values: this.props.stats.weekly.meanByDay
     };
 
