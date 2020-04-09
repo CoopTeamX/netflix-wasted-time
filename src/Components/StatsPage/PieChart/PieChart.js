@@ -6,18 +6,18 @@ export default class PieChart extends React.Component {
 		super();
 		this.state = {expressedInHours: false}
 	}
+
 	needToConvertToHours = () => {
 		if(this.state.expressedInHours) return true;
 
 		var i = 0;
 		while (i < this.props.data.values.length) {
-			if(this.props.data.values[i] > 120) {
+			if(this.props.data.values[i] > 240) {
 				this.setState({expressedInHours: true});
 				return true;
 			}
 			i++;
 		}
-
 		return false;
 	}
 		

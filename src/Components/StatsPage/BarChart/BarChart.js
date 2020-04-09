@@ -2,10 +2,20 @@ import React from "react";
 import { Bar } from 'react-chartjs-2';
 
 export default class BarChart extends React.Component {
+  constructor() {
+		super();
+		this.state = {expressedInHours: false}
+  }
+
   needToConvertToHours = () => {
+		if(this.state.expressedInHours) return true;
+
     var i = 0;
     while (i < this.props.data.values.length) {
-      if(this.props.data.values[i] > 120) return true;
+      if(this.props.data.values[i] > 240) {
+				this.setState({expressedInHours: true});       
+        return true;
+      }
       i++;
     }
 
