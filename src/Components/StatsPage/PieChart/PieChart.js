@@ -51,7 +51,7 @@ export default class PieChart extends React.Component {
 				label: function(tooltipItem, data) { 
 					var indice = tooltipItem.index;
 					const suffix = self.state.expressedInHours ? ' h' : ' min';
-					return data.datasets[0].data[indice] + suffix;
+					return data.labels[tooltipItems.index] + ': ' + data.datasets[0].data[indice] + suffix;
 				}
 			}
 		},
