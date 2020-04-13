@@ -51,5 +51,5 @@ $ docker run -d -p 8000:80 coopteamx/netflix-wasted-time
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 ### Authors
-
-@Fberrez @Chimanos @ThomasCaud
+[ThomasCaud](https://github.com/ThomasCaud),
+[fberrez](https://github.com/fberrez)
